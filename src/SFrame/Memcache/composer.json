@@ -1,0 +1,13 @@
+{
+    "name": "sibphp/memcache",
+    "description": "memcache component",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fred Yang",
+            "email": "shuky2000@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
