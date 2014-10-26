@@ -1,6 +1,6 @@
 {
-    "name": "sframe/memcache",
-    "description": "memcache component",
+    "name": "sframe/redis",
+    "description": "redis component",
     "license": "MIT",
     "authors": [
         {

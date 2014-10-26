@@ -2,8 +2,7 @@
 
 /**
  * Memcache
- *
- * @author fredyang<shuky2000@163.com>
+ * Support multi memcache servers easier through configuration
  */
 class Memcache
 {
@@ -26,13 +25,14 @@ class Memcache
 
     /**
      * Create a instance based on the given configuration
+     * Based on php memcache extension
      * 
      * @param array $config the configuration
      */
     public function __construct(array $config = array())
     {
         if (!extension_loaded('memcache')) {
-            throw new Exception\MemcacheExtensionNotFound();
+            throw new Exception\MemcacheExtensionNotExists();
         }
         $this->_mc = new \Memcache;
         $this->_config = array_merge($this->_config, $config);
