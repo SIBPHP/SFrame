@@ -3,26 +3,43 @@
 /**
  * Memcache
  * Support multi memcache servers easier through configuration
+ * 
+ * Config example:
+ * 
+ * One server:
+ * array(
+ *  host => ''          // optional, default 127.0.0.1
+ *  port => ''          // optional, default 11211
+ *  persistent => false // optional, default false]
+ *  weight => 1         // optional, default 1
+ *  expire => 86400     // optional default 86400 (1 day)
+ * )
+ * 
+ * Multi servers:
+ * array(
+ *  servers => array(
+ *      array(
+ *          [one config]
+ *      )
+ *      array(
+ *          [one config]
+ *      )
+ *      ...
+ *  )
+ *  expire => 86400
+ * )
  */
 class Memcache
 {
     const DEFAULT_HOST = '127.0.0.1';
     const DEFAULT_PORT = 11211;
     const DEFAULT_PERSISTENT = false;
-    const DEFAULT_WEIGHT = 0;
-    const DEFAULT_EXPIRE = 1200;
+    const DEFAULT_WEIGHT = 1;
+    const DEFAULT_EXPIRE = 86400;
     
     protected $_mc = null;
-    protected $_config = array(
-        'servers' => array(array(
-                'host' => self::DEFAULT_HOST,
-                'port' => self::DEFAULT_PORT,
-                'persistent' => self::DEFAULT_PERSISTENT,
-                'weight' => null
-            )),
-        'expire' => self::DEFAULT_EXPIRE
-    );
-
+    protected $_expire = self::DEFAULT_EXPIRE;
+    
     /**
      * Create a instance based on the given configuration
      * Based on php memcache extension
@@ -34,9 +51,23 @@ class Memcache
         if (!extension_loaded('memcache')) {
             throw new Exception\MemcacheExtensionNotExists();
         }
+        
         $this->_mc = new \Memcache;
-        $this->_config = array_merge($this->_config, $config);
-        foreach ($this->_config['servers'] as $server) {
+        
+        // config
+        if (empty($config['servers'])) {
+            $servers = array(
+                $config
+            );
+        } else {
+            $servers = $config['servers'];
+        }
+        
+        if (isset($config['expire'])) {
+            $this->_expire = (int)$config['expire'];
+        }
+        
+        foreach ($servers as $server) {
             $host = empty($server['host']) ? self::DEFAULT_HOST : $server['host'];
             $port = empty($server['port']) ? self::DEFAULT_PORT : $server['port'];
             $persistent = isset($server['persistent']) ? (bool)$server['persistent'] : self::DEFAULT_PERSISTENT;
@@ -56,7 +87,7 @@ class Memcache
     public function set($key, $value, $expire = null)
     {
         if (null === $expire) {
-            $expire = $this->_config['expire'];
+            $expire = $this->_expire;
         }
         return $this->_mc->set($key, $value, 0, $expire);
     }
@@ -67,7 +98,7 @@ class Memcache
     public function setCompressed($key, $value, $expire = null)
     {
         if (null === $expire) {
-            $expire = $this->_config['expire'];
+            $expire = $this->_expire;
         }
         return $this->_mc->set($key, $value, MEMCACHE_COMPRESSED, $expire);
     }
