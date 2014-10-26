@@ -80,7 +80,7 @@ class DB
     }
 
     /**
-     * 获取数据库链接
+     * Get a pdo instance
      */
     protected function _connection(array $config)
     {
@@ -261,7 +261,7 @@ class DB
     
     
     /**
-     * 更新数据库
+     * update
      */
     public function update($table, array $bind, $where = '')
     {
@@ -373,7 +373,7 @@ class DB
     
     
     /**
-     * 获取组装后的where条件
+     * Parse and assemble where string
      *
      * array('x=?'=>'x')
      * array('x>?'=>2, 'y=?'=>'y')
