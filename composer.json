@@ -12,5 +12,15 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0"
+    },
+    "replace": {
+        "sframe/memcache": "self.version",
+        "sframe/redis": "self.version",
+        "sframe/database": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "SFrame": "src/"
+        }
     }
 }
