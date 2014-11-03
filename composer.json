@@ -1,6 +1,7 @@
 {
     "name": "sibphp/sframe",
     "description": "SIBPHP Framework",
+    "keywords": ["framework", "sibphp"],
     "license": "MIT",
     "authors": [
         {
@@ -10,6 +11,6 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.5.0"
+        "php": ">=5.4.0"
     }
 }
