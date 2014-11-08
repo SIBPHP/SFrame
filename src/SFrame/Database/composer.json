@@ -1,6 +1,6 @@
 {
-    "name": "sframe/memcache",
-    "description": "memcache component",
+    "name": "sframe/database",
+    "description": "database component",
     "license": "MIT",
     "authors": [
         {
@@ -12,7 +12,7 @@
     "require": {},
     "autoload": {
         "psr-0": {
-            "SFrame\\Memcache": ""
+            "SFrame\\Database": ""
         }
     }
 }

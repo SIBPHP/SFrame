@@ -16,10 +16,11 @@
     "replace": {
         "sframe/memcache": "self.version",
         "sframe/redis": "self.version",
-        "sframe/database": "self.version"
+        "sframe/database": "self.version",
+        "sframe/config": "self.version"
     },
     "autoload": {
-        "psr-4": {
+        "psr-0": {
             "SFrame": "src/"
         }
     }
