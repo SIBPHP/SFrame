@@ -15,5 +15,6 @@
         "psr-0": {
             "SFrame\\Database": ""
         }
-    }
+    },
+    "target-dir": "SFrame/Database"
 }

@@ -15,5 +15,6 @@
         "psr-0": {
             "SFrame\\Router": ""
         }
-    }
+    },
+    "target-dir": "SFrame/Router"
 }

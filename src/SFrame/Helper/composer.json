@@ -16,5 +16,6 @@
             "SFrame\\Arr": "",
             "SFrame\\Str": ""
         }
-    }
+    },
+    "target-dir": "SFrame/Helper"
 }
