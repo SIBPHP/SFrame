@@ -85,7 +85,7 @@ class DB
     protected function _connection(array $config)
     {
         if (empty($config['dbname']) || empty($config['username']) || $config['password']) {
-            throw new Exception\InvalidArgument('Invalid config');
+            throw new \InvalidArgumentException('Invalid config');
         }
         
         $charset = empty($config['charset']) ? self::DEFAULT_CHARSET : $config['charset'];
@@ -100,12 +100,7 @@ class DB
         $port = empty($config['port']) ? '' : (';port='. $config['port']);
         $dsn = $driver .':host='. $host . $port .';dbname='. $config['dbname'];
         
-        try {
-            $conn = new PDO($dsn, $config['username'], $config['password'], $options);
-        } catch (\PDOException $e) {
-            throw new Exception\ConnectError($e->getMessage());
-        }
-        return $conn;
+        return new PDO($dsn, $config['username'], $config['password'], $options);
     }
 
     /**
@@ -174,7 +169,7 @@ class DB
         $sql = 'SELECT * FROM ' . $this->quoteIdentifier($table);
         $stmt = $this->_slave()->query($sql);
         if ($stmt === false) {
-            throw new Exception\InvalidArgument('Invalid table:'. $table);
+            throw new \InvalidArgumentException('Invalid table:'. $table);
         }
         $column_count = $stmt->columnCount();
         $columns = array();

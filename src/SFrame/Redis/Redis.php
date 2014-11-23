@@ -66,7 +66,7 @@ class Redis
     public function __construct(array $config)
     {
         if (!extension_loaded('redis')) {
-            throw new Exception\RedisExtensionNotExists;
+            throw new \BadFunctionCallException('Redis extension not loaded.');
         }
         
         // config master

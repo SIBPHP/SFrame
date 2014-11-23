@@ -1,6 +1,8 @@
 <?php namespace SFrame\Config;
 
-class Config
+use Illuminate\Filesystem\FileNotFoundException;
+
+class FileArray
 {
     protected $_base_path = '';
     protected $_data = array();
@@ -9,7 +11,7 @@ class Config
     public function __construct($base_path)
     {
         if (!is_dir($base_path)) {
-            throw new Exception\DirNotFound($base_path);
+            throw new FileNotFoundException($base_path .' is not exists.');
         }
         $this->_base_path = trim($base_path);
     }
@@ -49,7 +51,7 @@ class Config
             if (null !== $this->get($key)) {
                 $has = true;
             }
-        } catch (Exception\FileNotFound $e) {
+        } catch (FileNotFoundException $e) {
         }
         return $has;
     }
@@ -67,7 +69,7 @@ class Config
         if (!isset($this->_data[$file_name])) {
             $file = $this->_base_path .'/'. $file_name .'.php';
             if (!is_file($file)) {
-                throw new Exception\FileNotFound($file);
+                throw new FileNotFoundException($file .' is not exists.');
             }
             $this->_data[$file_name] = include $file;
         }

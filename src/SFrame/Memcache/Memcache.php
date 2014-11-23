@@ -49,7 +49,7 @@ class Memcache
     public function __construct(array $config = array())
     {
         if (!extension_loaded('memcache')) {
-            throw new Exception\MemcacheExtensionNotExists();
+            throw new \BadFunctionCallException('Memcache extension not loaded');
         }
         
         $this->_mc = new \Memcache;
