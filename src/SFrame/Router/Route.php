@@ -202,7 +202,7 @@ class Route
         // Execute controller->action
         $controller_file = $this->_controller_path . '/' . $controller . '.php';
         if (!is_file($controller_file)) {
-            throw new RouteNotFoundException('The Controller '. $controller .' is not exists');
+            throw new NotFoundException('The Controller '. $controller .' is not exists');
         }
         require_once $controller_file;
         
@@ -213,14 +213,14 @@ class Route
             $controller_class_name = $controller;
         }
         if (!class_exists($controller_class_name)) {
-            throw new RouteNotFoundException('The Controller Class '. $controller_class_name .' is invalid');
+            throw new NotFoundException('The Controller Class '. $controller_class_name .' is invalid');
         }
         $controller_class = new $controller_class_name($this);
         
         // action call
         $action_method = strtolower($method) . ucfirst($action);
         if (!method_exists($controller_class, $action_method)) {
-            throw new RouteNotFoundException('The Action '. $action .' is invalid');
+            throw new NotFoundException('The Action '. $action .' is invalid');
         }
         if (empty($params)) {
             $controller_class->$action_method();

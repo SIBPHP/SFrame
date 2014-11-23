@@ -4,43 +4,6 @@
  * Redis
  * phpredis: https://github.com/nicolasff/phpredis
  * It can support master/slave mode through configuration
- * 
- * Config example:
- * 
- * One server:
- * array(
- *  host => ''          // optional, default 127.0.0.1
- *  port => ''          // optional, default 6379
- *  timeout => 0        // optional, default 0
- *  persistent => false // optional, default false(means use connect method)
- * )
- * 
- * 1 master 1 slave:
- * array(
- *  master => array(
- *      [one config]
- *  )
- *  slave => array(
- *      [one config]
- *  )
- * )
- * 
- * 1 master multi slaves:
- * array(
- *  master => array(
- *      [one config]
- *  )
- *  slaves => array(
- *      array(
- *          [one config]
- *      )
- *      array(
- *          [one config]
- *      )
- *      ...
- *  )
- * )
- *
  */
 class Redis
 {

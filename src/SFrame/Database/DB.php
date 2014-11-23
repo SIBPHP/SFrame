@@ -3,46 +3,6 @@
 /*
  * A simple database class based on PDO
  * Support master/slave mode
- * 
- * Config example:
- * 
- * One database:
- * array(
- *  driver => ''        // optional, default mysql
- *  host => ''          // optional, default 127.0.0.1
- *  port => ''          // optional, default PDO defaul
- *  charset => 'utf8'   // optional, default utf8
- *  persistent => false // optional, default false
- *  dbname => ''        // required, the name of the database
- *  username => ''      // required, username of the database
- *  password => ''      // required, password of the database
- * )
- * 
- * 1 master 1 slave:
- * array(
- *  master => array(
- *      [one config]
- *  )
- *  slave => array(
- *      [one config]
- *  )
- * )
- * 
- * 1 master multi slaves
- * array(
- *  master => array(
- *      [one config]
- *  )
- *  slaves => array(
- *      array(
- *          [one config]
- *      )
- *      array(
- *          [one config]
- *      )
- *      ...
- *  )
- * )
  */
 class DB
 {

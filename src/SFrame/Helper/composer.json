@@ -1,7 +1,6 @@
 {
     "name": "sframe/helper",
     "description": "helper component",
-    "keywords": ["helper", "array", "string"],
     "license": "MIT",
     "authors": [
         {
@@ -10,7 +9,9 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {},
+    "require": {
+        "php": ">=5.4.0"
+    },
     "autoload": {
         "psr-0": {
             "SFrame\\Arr": "",

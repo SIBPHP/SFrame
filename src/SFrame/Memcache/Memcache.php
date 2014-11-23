@@ -3,31 +3,6 @@
 /**
  * Memcache
  * Support multi memcache servers easier through configuration
- * 
- * Config example:
- * 
- * One server:
- * array(
- *  host => ''          // optional, default 127.0.0.1
- *  port => ''          // optional, default 11211
- *  persistent => false // optional, default false]
- *  weight => 1         // optional, default 1
- *  expire => 86400     // optional default 86400 (1 day)
- * )
- * 
- * Multi servers:
- * array(
- *  servers => array(
- *      array(
- *          [one config]
- *      )
- *      array(
- *          [one config]
- *      )
- *      ...
- *  )
- *  expire => 86400
- * )
  */
 class Memcache
 {
