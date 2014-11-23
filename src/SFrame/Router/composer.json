@@ -1,7 +1,7 @@
 {
-    "name": "sframe/helper",
-    "description": "helper component",
-    "keywords": ["helper", "array", "string"],
+    "name": "sframe/route",
+    "description": "route component",
+    "keywords": ["router"],
     "license": "MIT",
     "authors": [
         {
@@ -13,8 +13,7 @@
     "require": {},
     "autoload": {
         "psr-0": {
-            "SFrame\\Arr": "",
-            "SFrame\\Str": ""
+            "SFrame\\Router": ""
         }
     }
 }

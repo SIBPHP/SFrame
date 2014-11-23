@@ -1,6 +1,7 @@
 {
     "name": "sframe/config",
     "description": "config component",
+    "keywords": ["config"],
     "license": "MIT",
     "authors": [
         {

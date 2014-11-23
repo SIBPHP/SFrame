@@ -1,6 +1,7 @@
 {
     "name": "sframe/memcache",
     "description": "memcache component",
+    "keywords": ["memcache"],
     "license": "MIT",
     "authors": [
         {

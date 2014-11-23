@@ -1,6 +1,7 @@
 {
     "name": "sframe/redis",
     "description": "redis component",
+    "keywords": ["redis"],
     "license": "MIT",
     "authors": [
         {

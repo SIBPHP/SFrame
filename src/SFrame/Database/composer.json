@@ -1,6 +1,7 @@
 {
     "name": "sframe/database",
     "description": "database component",
+    "keywords": ["database"],
     "license": "MIT",
     "authors": [
         {

@@ -5,3 +5,11 @@ define('D_TIMESTAMP', time());
 define('D_DATETIME', date('Y-m-d H:i:s', D_TIMESTAMP));
 
 require_once __DIR__ .'/helper.php';
+
+
+// 自动加载
+require_once SF_ROOT .'/Framework/ClassLoader.php';
+SFrame\Framework\ClassLoader::register();
+SFrame\Framework\ClassLoader::addDirectories(array(
+    dirname(SF_ROOT)
+));

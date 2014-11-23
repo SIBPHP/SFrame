@@ -1,4 +1,4 @@
-<?php namespace SFrame\Framework\Router;
+<?php namespace SFrame\Router;
 
 /**
  * The route
