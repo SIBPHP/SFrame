@@ -4,7 +4,7 @@ Support master/slave mode through configuration
 
 # Installation
 ```php
-composer require "sframe/redis:*"
+composer require "sframe/redis:dev-master"
 ```
 
 # Configuration

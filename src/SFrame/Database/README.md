@@ -3,7 +3,7 @@ A simple database manager based on PDO, support master/slaves mode
 
 # Installation
 ```php
-composer require "sframe/database:*"
+composer require "sframe/database:dev-master"
 ```
 
 # Configuration

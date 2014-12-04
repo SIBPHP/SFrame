@@ -3,7 +3,7 @@ A simple way to load array config in file.
 
 # Installation
 ```php
-composer require "sframe/config:*"
+composer require "sframe/config:dev-master"
 ```
 
 # Usage

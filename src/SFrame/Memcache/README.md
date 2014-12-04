@@ -4,7 +4,7 @@ Support multi memcache servers easier through configuration
 
 # Installation
 ```php
-composer require "sframe/memcache:*"
+composer require "sframe/memcache:dev-master"
 ```
 
 # Configuration

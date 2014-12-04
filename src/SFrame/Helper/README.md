@@ -3,7 +3,7 @@ Useful libraries.
 
 # Installation
 ```php
-composer require "sframe/helper:*"
+composer require "sframe/helper:dev-master"
 ```
 
 # Arr
