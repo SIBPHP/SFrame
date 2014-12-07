@@ -6,7 +6,7 @@ example: http://hello.com/controller/action?name=test
 
 # Installation
 ```php
-composer require "sframe/router:*"
+composer require "sframe/router:dev-master"
 ```
 
 

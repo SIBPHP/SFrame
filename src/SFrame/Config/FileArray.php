@@ -1,6 +1,6 @@
 <?php namespace SFrame\Config;
 
-use Illuminate\Filesystem\FileNotFoundException;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
 class FileArray
 {
@@ -25,6 +25,7 @@ class FileArray
         if (strpos($key, '.')) {
             $ks = explode('.', $key);
             $config = $this->_load($ks[0]);
+            unset($ks[0]);
             foreach ($ks as $k) {
                 if (isset($config[$k])) {
                     $config = $config[$k];
