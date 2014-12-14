@@ -179,3 +179,20 @@ function _e($msgid)
 {
     echo gettext($msgid);
 }
+
+
+/**
+ * Get url script
+ */
+function getUrlScript()
+{
+    return filter_has_var(INPUT_SERVER, 'SCRIPT_NAME') ? filter_input(INPUT_SERVER, 'SCRIPT_NAME') : filter_input(INPUT_SERVER, 'PHP_SELF');
+}
+
+/**
+ * Get url base
+ */
+function getUrlBase()
+{
+    return rtrim(dirname(getUrlScript()), '\\/');
+}
