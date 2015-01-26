@@ -1,69 +1,64 @@
-<?php namespace Sframe;
+<?php namespace SFrame\Validation;
+
 /**
  * Validator
- * 多种验证时，一旦碰到无效则停止验证，即判无效
- *
- * @package Validator
- * @author shukyyang@pplive.com
- * @version $Id: Validator.php 1279 2011-12-18 02:42:28Z shukyyang $
  */
-
 class Validator
 {
     /**
-     * 进入集成式的验证处理
+     * Usage:
      * run('isEmail')
      * run(array('validator'=>'valueRange', 'options'=>array(1, 30)))
      * run(array(
      *     array('validator'=>'isEmail'),
      *     array('validator'=>'valueRange', 'options'=>array(1, 30), 'message'=>'xxxx')
      * ))
-     * @param string|array $rule 如果为string时则为单个验证器
-     * 数组形态时array('validator'=>'xxx', 'options'=>array(), 'message'=>'xxxx')
+     * @param string|array $rule the rule options
+     * Format: array('validator'=>'xxx', 'options'=>array(), 'message'=>'xxxx')
      * @return bool
      */
     public static function run($data, $rule, &$message = '')
     {
-        // 参数组织
+        // set rule into array
         if (is_string($rule)) {
             $rule = array(array('validator' => $rule));
         } elseif (is_array($rule) && !empty($rule['validator'])) {
             $rule = array($rule);
         }
-        // 聚合验证处理
         $valid = true;
         foreach ($rule as $v) {
             if (!$valid) {
                 break;
             }
             if (empty($v['validator']) || !method_exists(__CLASS__, $v['validator'])) {
-                throw new SF_Exception('无效的验证方法');
+                throw new \RuntimeException('The validator not exists: '. $v['validator']);
             }
-            // 验证调用
+            // if validator needs parameters
             $options = array('value' => $data);
             if (isset($v['options']) && is_array($v['options'])) {
                 $options = array_merge($options, $v['options']);
             }
             $valid = call_user_func_array(array(__CLASS__, $v['validator']), $options);
-            // 消息
+            // Invalid
             if (!$valid) {
-                $message = (empty($v['message'])) ? '经验证无效' : $v['message'];
+                $message = (empty($v['message'])) ? 'Invalid data' : $v['message'];
             }
         }
         return $valid;
     }
 
     /**
-     * 邮箱是否有效
+     * Email
      */
     public static function isEmail($value)
     {
-        return preg_match('/^\w+([.]\w+)*[@]\w+([.]\w+)*[.][a-zA-Z]{2,4}$/', $value);
+        $result = filter_var($value, FILTER_VALIDATE_EMAIL);
+        return $result == false ? false : true;
     }
-
+    
     /**
-     * 是否是日期
-     * 格式：yyyy-mm-dd or yyyy/mm/dd
+     * Date
+     * Format: yyyy-mm-dd or yyyy/mm/dd
      */
     public static function isDate($value)
     {
@@ -76,8 +71,9 @@ class Validator
         }
         if (preg_match('/^\d{4}' . $p . '\d{1,2}' . $p . '\d{1,2}$/', $value)) {
             $arr = explode($p, $value);
-            if (count($arr) < 3)
+            if (count($arr) < 3) {
                 return false;
+            }
             list($year, $month, $day) = $arr;
             return checkdate($month, $day, $year);
         } else {
@@ -86,15 +82,25 @@ class Validator
     }
 
     /**
-     * 是否是Url
+     * URL
      */
     public static function isUrl($value)
     {
-        return preg_match('/http:\/\/[a-z0-9\-]+\.[a-z]+\/?.*/i', $value);
+        $result = filter_var($value, FILTER_VALIDATE_URL);
+        return $result == false ? false : true;
     }
+    
+    /**
+     * Http or https url string
+     */
+    public static function isHttpUrl($value)
+    {
+        return preg_match('/https?:\/\/[a-z0-9\-]+\.[a-z]+\/?.*/i', $value);
+    }
+    
 
     /**
-     * 自定义正则，是否匹配
+     * regular expression
      */
     public static function isMatch($value, $regxp)
     {
@@ -102,7 +108,7 @@ class Validator
     }
 
     /**
-     * 值是否相等
+     * if equal
      */
     public static function isEqual($value, $cmp)
     {
@@ -110,7 +116,7 @@ class Validator
     }
 
     /**
-     * 值是否完全同
+     * if same
      */
     public static function isSame($value, $cmp)
     {
@@ -118,25 +124,24 @@ class Validator
     }
     
     /**
-     * 值是否存在数组中
+     * in array
      */
-    public static function isIn($value, $array)
+    public static function isInArray($value, $array)
     {
         return in_array($value, $array);
     }
 
     /**
-     * 字串长度
-     * @param int $type 如果是0则按1个中文按1个字符计算，如果1按1个中文3个字符计算
+     * length range
      */
-    public static function lengthRange($value, $min, $max, $type = 0)
+    public static function lengthRange($value, $min, $max)
     {
         $len = mb_strlen($value, 'UTF-8');
         return $len >= $min && $len <= $max;
     }
 
     /**
-     * 值范围
+     * value range
      */
     public static function valueRange($value, $min, $max)
     {
@@ -144,7 +149,7 @@ class Validator
     }
 
     /**
-     * 不为空
+     * is empty
      */
     public static function notEmpty($value)
     {
@@ -152,7 +157,7 @@ class Validator
     }
     
     /**
-     * 不为null
+     * is null
      */
     public static function notNull($value)
     {
@@ -161,7 +166,7 @@ class Validator
 
 
     /**
-     * 递归验证不为空
+     * not empty recursively
      */
     public static function recurNotEmpty($value)
     {
@@ -176,9 +181,10 @@ class Validator
         }
         return 1;
     }
-
+    
+    
     /**
-     * 是否指定类型
+     * the value type
      */
     public static function isType($value, $type)
     {
