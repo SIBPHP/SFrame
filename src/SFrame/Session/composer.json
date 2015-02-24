@@ -1,0 +1,24 @@
+{
+    "name": "sframe/session",
+    "description": "session component",
+    "keywords": ["session"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fred Yang",
+            "email": "shuky2000@163.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.3.0",
+        "sframe/redis": "dev-master",
+        "sframe/memcache": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "SFrame\\Session": ""
+        }
+    },
+    "target-dir": "SFrame/Session"
+}
