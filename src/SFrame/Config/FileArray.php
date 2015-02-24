@@ -2,16 +2,14 @@
 
 use Symfony\Component\Filesystem\Exception\FileNotFoundException;
 
-class FileArray
+class FileArray extends Container
 {
     protected $_base_path = '';
-    protected $_data = array();
-
 
     public function __construct($base_path)
     {
         if (!is_dir($base_path)) {
-            throw new FileNotFoundException($base_path .' is not exists.');
+            throw new \FileNotFoundException($base_path .' is not exists.');
         }
         $this->_base_path = trim($base_path);
     }
@@ -22,22 +20,18 @@ class FileArray
      */
     public function get($key, $default = null)
     {
-        if (strpos($key, '.')) {
-            $ks = explode('.', $key);
-            $config = $this->_load($ks[0]);
-            unset($ks[0]);
-            foreach ($ks as $k) {
-                if (isset($config[$k])) {
-                    $config = $config[$k];
-                } else {
-                    $config = $default;
-                    break;
-                }
+        $poz = strpos($key, '.');
+        $file_name = $poz ? substr($key, 0, $poz) : $key;
+        $file_key = '_'. $file_name;
+        if (!$this->has($file_key)) {
+            $file = $this->_base_path .'/'. $file_name .'.php';
+            if (!is_file($file)) {
+                throw new \FileNotFoundException($file .' is not exists.');
             }
-        } else {
-            $config = $this->_load($key);
+            $config = include $file;
+            $this->set($file_key, $config);
         }
-        return $config;
+        return $this->get('_'.$key, $default);
     }
     
     
@@ -52,28 +46,8 @@ class FileArray
             if (null !== $this->get($key)) {
                 $has = true;
             }
-        } catch (FileNotFoundException $e) {
+        } catch (\FileNotFoundException $e) {
         }
         return $has;
-    }
-    
-    
-    /**
-     * Load the config file
-     * 
-     * @param string $file_name the config file name
-     * @return mixed the config
-     * @throws Exception\FileNotFound
-     */
-    protected function _load($file_name)
-    {
-        if (!isset($this->_data[$file_name])) {
-            $file = $this->_base_path .'/'. $file_name .'.php';
-            if (!is_file($file)) {
-                throw new FileNotFoundException($file .' is not exists.');
-            }
-            $this->_data[$file_name] = include $file;
-        }
-        return $this->_data[$file_name];
     }
 }

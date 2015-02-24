@@ -52,7 +52,7 @@ class Redis
      */
     public function set($key, $value, $expire = null)
     {
-        return $this->_master()->set($key, json_encode($value), $expire);
+        return $this->_master()->set($key, $value, $expire);
     }
     
     
@@ -63,8 +63,7 @@ class Redis
      */
     public function get($key)
     {
-        $value = $this->_slave()->get($key);
-        return json_decode($value);
+        return $this->_slave()->get($key);
     }
     
     
