@@ -60,7 +60,7 @@ class DB
         $port = empty($config['port']) ? '' : (';port='. $config['port']);
         $dsn = $driver .':host='. $host . $port .';dbname='. $config['dbname'];
         
-        return new PDO($dsn, $config['username'], $config['password'], $options);
+        return new \PDO($dsn, $config['username'], $config['password'], $options);
     }
 
     /**
